@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+
+<!-- baidu_tongji -->
+
+<script type="text/javascript">
+
+    var _hmt = _hmt || [];
+
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?25dd518910c914e2f273428933c57baf";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+
+</script>
+
+<!-- End baidu_tongji -->
+
+
+  
+  <title>多进程扫描服务器 | Ethan Sha</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在电信十所服务器机房里管理众多的服务器，由于个别服务器(华为服务器)纽扣电池有问题，开机启动不正常，于是写出以下Python程序用于扫描服务器是否正常开机。 预备知识需要扫描多个服务器的IP地址。并且只能使用Windows自带Ping.exe程序。于是用到以下Python模块：multiprocessing、subprocess、re这三个模块分别是多进程模块，子进程模块，正则表达式模块">
+<meta name="keywords" content="Python2.7,多进程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多进程扫描服务器">
+<meta property="og:url" content="https://wh136.github.io/2016/08/14/多进程扫描服务器/index.html">
+<meta property="og:site_name" content="Ethan Sha">
+<meta property="og:description" content="在电信十所服务器机房里管理众多的服务器，由于个别服务器(华为服务器)纽扣电池有问题，开机启动不正常，于是写出以下Python程序用于扫描服务器是否正常开机。 预备知识需要扫描多个服务器的IP地址。并且只能使用Windows自带Ping.exe程序。于是用到以下Python模块：multiprocessing、subprocess、re这三个模块分别是多进程模块，子进程模块，正则表达式模块">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-05-19T11:41:48.704Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多进程扫描服务器">
+<meta name="twitter:description" content="在电信十所服务器机房里管理众多的服务器，由于个别服务器(华为服务器)纽扣电池有问题，开机启动不正常，于是写出以下Python程序用于扫描服务器是否正常开机。 预备知识需要扫描多个服务器的IP地址。并且只能使用Windows自带Ping.exe程序。于是用到以下Python模块：multiprocessing、subprocess、re这三个模块分别是多进程模块，子进程模块，正则表达式模块">
+  
+    <link rel="alternate" href="/atom.xml" title="Ethan Sha" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  <link href="//fonts.font.im/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Ethan Sha</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://wh136.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-多进程扫描服务器" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/08/14/多进程扫描服务器/" class="article-date">
+  <time datetime="2016-08-14T05:09:04.000Z" itemprop="datePublished">2016-08-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      多进程扫描服务器
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在电信十所服务器机房里管理众多的服务器，由于个别服务器(华为服务器)纽扣电池有问题，开机启动不正常，<br>于是写出以下Python程序用于扫描服务器是否正常开机。</p>
+<h3 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h3><p>需要扫描多个服务器的IP地址。并且只能使用Windows自带Ping.exe程序。<br>于是用到以下Python模块：multiprocessing、subprocess、re<br>这三个模块分别是多进程模块，子进程模块，正则表达式模块<br><a id="more"></a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python 2.7</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> ctime</span><br><span class="line"><span class="keyword">import</span> multiprocessing</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ping_server</span><span class="params">(ip)</span>:</span></span><br><span class="line">    p = subprocess.Popen([<span class="string">"PING.EXE"</span>, ip], stdin=subprocess.PIPE,</span><br><span class="line">                         stdout=subprocess.PIPE,</span><br><span class="line">                         stderr=subprocess.PIPE,</span><br><span class="line">                         shell=<span class="keyword">True</span>)</span><br><span class="line">    out = p.stdout.read().decode(<span class="string">'gbk'</span>)</span><br><span class="line">    <span class="keyword">if</span> re.search(<span class="string">"TTL=64"</span>, out) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'%s'</span> % ip, <span class="string">'OK'</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'%s'</span> % ip, <span class="string">'Failed!!!'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'Start at '</span>, ctime()</span><br><span class="line">    process_list = []</span><br><span class="line">    args_ip = [<span class="string">'192.168.0.1'</span>, <span class="string">'192.168.80.3'</span>, <span class="string">'192.168.80.4'</span>, <span class="string">'192.168.80.100'</span>,</span><br><span class="line">               <span class="string">'192.168.1.60'</span>, <span class="string">'192.168.30.61'</span>, <span class="string">'192.168.30.62'</span>,</span><br><span class="line">               <span class="string">'192.168.30.63'</span>, <span class="string">'192.168.30.64'</span>, <span class="string">'192.168.30.82'</span>,</span><br><span class="line">               <span class="string">'192.168.30.81'</span>, <span class="string">'192.168.80.2'</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(args_ip)):</span><br><span class="line">        p = multiprocessing.Process(target=ping_server, args=(args_ip[i],))</span><br><span class="line">        process_list.append(p)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(args_ip)):</span><br><span class="line">        process_list[i].start()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(args_ip)):</span><br><span class="line">        process_list[i].join()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'End at'</span>, ctime()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Start at  Sun Aug <span class="number">29</span> <span class="number">21</span>:<span class="number">02</span>:<span class="number">13</span> <span class="number">2016</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.0</span><span class="number">.1</span> OK</span><br><span class="line"><span class="number">192.168</span><span class="number">.80</span><span class="number">.3</span> OK</span><br><span class="line"><span class="number">192.168</span><span class="number">.80</span><span class="number">.4</span> OK</span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.60</span> OK</span><br><span class="line"><span class="number">192.168</span><span class="number">.80</span><span class="number">.100</span> OK</span><br><span class="line"><span class="number">192.168</span><span class="number">.30</span><span class="number">.62</span> OK</span><br><span class="line"><span class="number">192.168</span><span class="number">.80</span><span class="number">.2</span> Failed!!!</span><br><span class="line"><span class="number">192.168</span><span class="number">.30</span><span class="number">.64</span> OK</span><br><span class="line"><span class="number">192.168</span><span class="number">.30</span><span class="number">.63</span> OK</span><br><span class="line"><span class="number">192.168</span><span class="number">.30</span><span class="number">.82</span> OK</span><br><span class="line"><span class="number">192.168</span><span class="number">.30</span><span class="number">.61</span> OK</span><br><span class="line"><span class="number">192.168</span><span class="number">.30</span><span class="number">.81</span> Failed!!!</span><br><span class="line">End at Sun Aug <span class="number">29</span> <span class="number">21</span>:<span class="number">02</span>:<span class="number">33</span> <span class="number">2016</span></span><br></pre></td></tr></table></figure>
+<h3 id="结论与改进"><a href="#结论与改进" class="headerlink" title="结论与改进"></a>结论与改进</h3><p>从结果可以看出某些服务器开机不正常，进而可以做进一步措施。本次扫描只是我们小组的服务器，其他小组还没去管理。<br>如果服务器数量很多，有时候由于异步，打印会比较乱，这时候需要用到信号量中的经典问题生产者与消费者问题来同步进程。<br>下一次改进待到合适再进行。</p>
+<p>版权声明：本文为博主原创文章，转载时注明，谢谢。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wh136.github.io/2016/08/14/多进程扫描服务器/" data-id="cjhh045py000kpc0h485xeu03" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python2-7/">Python2.7</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多进程/">多进程</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/09/16/Python解析XML的方法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Python解析XML的方法，用于简单对象访问协议（SOAP）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/08/05/Python代码笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Python代码笔记</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP协议/">HTTP协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python2-7/">Python2.7</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vmware虚拟机/">Vmware虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebService/">WebService</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XML/">XML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fiddler-wireshark/">fiddler&wireshark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/协议分析/">协议分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程/">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多进程/">多进程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抓包/">抓包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量统计/">流量统计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记，-计算机网络/">读书笔记， 计算机网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集群服务器/">集群服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面向对象程序设计/">面向对象程序设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试日记/">面试日记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/05/15/读谢希仁版计算机网络感悟/">读计算机网络感悟</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/10/201805面试总结/">201805面试总结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/10/leetCode/">leetcode猛撸</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/11/JavaScript深拷贝递归/">JavaScript浅拷贝和深拷贝递归</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/01/使用ubuntu,kafka,zookeeper搭建集群服务器/">使用ubuntu,kafka,zookeeper搭建集群服务器</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Ethan Sha<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    
+
+<script src="https://cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

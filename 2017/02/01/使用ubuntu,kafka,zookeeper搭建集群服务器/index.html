@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+
+<!-- baidu_tongji -->
+
+<script type="text/javascript">
+
+    var _hmt = _hmt || [];
+
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?25dd518910c914e2f273428933c57baf";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+
+</script>
+
+<!-- End baidu_tongji -->
+
+
+  
+  <title>使用ubuntu,kafka,zookeeper搭建集群服务器 | Ethan Sha</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文将粗略描述一台电脑或者多台电脑搭建集群服务器。以此提供分布式发布订阅消息系统，大数据hadoop，简单的机器学习等多种服务需要的运行环境。环境与工具：Windows 10、vmware 14 Pro、ubuntu 16LTS、kafka_2.11-0.11.0.0、zookeeper-3.4.5、xshell5配置：8G内存、256G固态、 1T机械、 GTX 850、Intel i5-CPU">
+<meta name="keywords" content="集群服务器,分布式,Vmware虚拟机,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用ubuntu,kafka,zookeeper搭建集群服务器">
+<meta property="og:url" content="https://wh136.github.io/2017/02/01/使用ubuntu,kafka,zookeeper搭建集群服务器/index.html">
+<meta property="og:site_name" content="Ethan Sha">
+<meta property="og:description" content="本文将粗略描述一台电脑或者多台电脑搭建集群服务器。以此提供分布式发布订阅消息系统，大数据hadoop，简单的机器学习等多种服务需要的运行环境。环境与工具：Windows 10、vmware 14 Pro、ubuntu 16LTS、kafka_2.11-0.11.0.0、zookeeper-3.4.5、xshell5配置：8G内存、256G固态、 1T机械、 GTX 850、Intel i5-CPU">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://onedrive.gimhoy.com/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbmhUd09YVkZoTzRoV1c1N2lkS1dlbUpyOVNB.jpg">
+<meta property="og:image" content="https://onedrive.gimhoy.com/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbmhUd09YVkZoTzRoV2dWZ1Y5TktSQUZ3UDFJ.jpg">
+<meta property="og:image" content="https://onedrive.gimhoy.com/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbmhUd09YVkZoTzRoV09NdTFtQ2VYNzEycTNp.jpg">
+<meta property="og:image" content="https://onedrive.gimhoy.com/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbmhUd09YVkZoTzRoV1l1UlZTWkhhUml4QmNq.jpg">
+<meta property="og:image" content="https://onedrive.gimhoy.com/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbmhUd09YVkZoTzRoV2ZtbnpNb0NNbFNTU2tv.jpg">
+<meta property="og:image" content="https://onedrive.gimhoy.com/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbmhUd09YVkZoTzRoV25kZVB5SEdmcVJydjdC.jpg">
+<meta property="og:updated_time" content="2018-05-02T13:32:20.310Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用ubuntu,kafka,zookeeper搭建集群服务器">
+<meta name="twitter:description" content="本文将粗略描述一台电脑或者多台电脑搭建集群服务器。以此提供分布式发布订阅消息系统，大数据hadoop，简单的机器学习等多种服务需要的运行环境。环境与工具：Windows 10、vmware 14 Pro、ubuntu 16LTS、kafka_2.11-0.11.0.0、zookeeper-3.4.5、xshell5配置：8G内存、256G固态、 1T机械、 GTX 850、Intel i5-CPU">
+<meta name="twitter:image" content="https://onedrive.gimhoy.com/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbmhUd09YVkZoTzRoV1c1N2lkS1dlbUpyOVNB.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Ethan Sha" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  <link href="//fonts.font.im/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Ethan Sha</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://wh136.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-使用ubuntu,kafka,zookeeper搭建集群服务器" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/01/使用ubuntu,kafka,zookeeper搭建集群服务器/" class="article-date">
+  <time datetime="2017-02-01T05:09:04.000Z" itemprop="datePublished">2017-02-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用ubuntu,kafka,zookeeper搭建集群服务器
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文将粗略描述一台电脑或者多台电脑搭建集群服务器。以此提供分布式发布订阅消息系统，大数据hadoop，简单的机器学习等多种服务需要的运行环境。<br>环境与工具：Windows 10、vmware 14 Pro、ubuntu 16LTS、kafka_2.11-0.11.0.0、zookeeper-3.4.5、xshell5<br>配置：8G内存、256G固态、 1T机械、 GTX 850、Intel i5-CPU<br>kafka：一种高吞吐量的分布式发布订阅消息系统<br>zookeeper：分布式应用程序协调服务，是Hadoop和Hbase的重要组件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。</p>
+<h2 id="安装ubuntu16，JDK，kafka，zookeeper并配置vmware-14-pro"><a href="#安装ubuntu16，JDK，kafka，zookeeper并配置vmware-14-pro" class="headerlink" title="安装ubuntu16，JDK，kafka，zookeeper并配置vmware 14 pro"></a>安装ubuntu16，JDK，kafka，zookeeper并配置vmware 14 pro</h2><p>在虚拟机中安装ubuntu16. <a href="https://www.ubuntu.com/download/desktop" target="_blank" rel="noopener">下载ubuntu</a><br>安装完毕后，进入登录界面，此时登录的是安装时注册的用户。<br>接着创建root用户,再登入root<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wh136@ubuntu:~$ sudo passwd root</span><br><span class="line">Enter new UNIX password: </span><br><span class="line">Retype new UNIX password:</span><br><span class="line">wh136@ubuntu:~$ su</span><br><span class="line">root@ubuntu:/<span class="comment">#</span></span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>并配置网络，使ubuntu有独立IP地址，也能连接互联网。方便安装JDK,kafka,zookeeper<br>配置网络<br><img src="https://onedrive.gimhoy.com/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbmhUd09YVkZoTzRoV1c1N2lkS1dlbUpyOVNB.jpg" alt="配置网络"><br><img src="https://onedrive.gimhoy.com/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbmhUd09YVkZoTzRoV2dWZ1Y5TktSQUZ3UDFJ.jpg" alt="配置网络"><br><img src="https://onedrive.gimhoy.com/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbmhUd09YVkZoTzRoV09NdTFtQ2VYNzEycTNp.jpg" alt="网关"></p>
+<h3 id="互相ping测试网络"><a href="#互相ping测试网络" class="headerlink" title="互相ping测试网络"></a>互相ping测试网络</h3><p><img src="https://onedrive.gimhoy.com/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbmhUd09YVkZoTzRoV1l1UlZTWkhhUml4QmNq.jpg" alt="windows ping ubuntu"><br><img src="https://onedrive.gimhoy.com/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbmhUd09YVkZoTzRoV2ZtbnpNb0NNbFNTU2tv.jpg" alt="ubuntu ping windows"><br>网络互通。</p>
+<p>然后再回到ubunutu安装SSH服务，最后使用xshell5连接到ubunutu<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wh136@ubuntu:~$ sudo apt-get install openssh-server    //安装SSH服务</span><br><span class="line">wh136@ubuntu:~$ sudo ps -e |grep ssh        //检查SSH是否启动 有sshd则启动了</span><br><span class="line">wh136@ubuntu:~$ sudo service ssh start      //启动SSH服务</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://onedrive.gimhoy.com/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbmhUd09YVkZoTzRoV25kZVB5SEdmcVJydjdC.jpg" alt="xshell连接ubuntu"><br>这样就搭建了第一台服务器，你想搭几台都可以，只要电脑硬件足够好。给每个虚拟机分配足够多的硬件资源就行。<br>注意！在使用完毕后，先把虚拟机中的服务器关闭，再关闭电脑。不能随意关闭，否则有可能造成文件丢失，虚拟机中的系统出现故障。</p>
+<h3 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h3><p>通过ppa(源) 方式安装JDK.(可以通过 apt-get upgrade 方式方便获得jdk的升级)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:/<span class="comment"># sudo add-apt-repository ppa:webupd8team/java         //添加ppa 添加仓库源：</span></span><br><span class="line">root@ubuntu:/<span class="comment"># sudo apt-get update                                  //更新软件包列表</span></span><br><span class="line">root@ubuntu:/<span class="comment"># sudo apt-get install oracle-java8-installer          //安装Oracle-java-installer </span></span><br><span class="line">root@ubuntu:/<span class="comment"># sudo update-java-alternatives -s java-8-oracle       //设置系统默认jdk</span></span><br><span class="line">root@ubuntu:/<span class="comment"># java -version                                        //测试jdk是否安装成功</span></span><br><span class="line">root@ubuntu:/<span class="comment"># javac -version</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="安装kafka-zookeeper（配置比较麻烦，暂时放一放）"><a href="#安装kafka-zookeeper（配置比较麻烦，暂时放一放）" class="headerlink" title="安装kafka,zookeeper（配置比较麻烦，暂时放一放）"></a>安装kafka,zookeeper（配置比较麻烦，暂时放一放）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:/<span class="comment"># cd /usr/local</span></span><br><span class="line">root@ubuntu:/usr/<span class="built_in">local</span><span class="comment"># wget https://archive.apache.org/dist/zookeeper/zookeeper-3.4.5/zookeeper-3.4.5.tar.gz   //注意zookeeper的版本号。后续有些操作会有差别。</span></span><br><span class="line">root@ubuntu:/usr/<span class="built_in">local</span><span class="comment"># wget http://archive.apache.org/dist/kafka/0.11.0.0/kafka_2.11-0.11.0.0.tgz</span></span><br><span class="line">root@ubuntu:/usr/<span class="built_in">local</span><span class="comment"># ls</span></span><br><span class="line">bin  etc  games  include  kafka_2.11-0.11.0.0.tgz  lib  man  sbin  share  src   zookeeper-3.4.5.tar.gz</span><br><span class="line">root@ubuntu:/usr/<span class="built_in">local</span><span class="comment"># tar -xzvf kafka_2.11-1.0.0.tgz   //解压</span></span><br><span class="line">root@ubuntu:/usr/<span class="built_in">local</span><span class="comment"># tar -xzvf zookeeper-3.4.5.tar.gz</span></span><br><span class="line">root@ubuntu:/usr/<span class="built_in">local</span><span class="comment"># cd conf                          //配置</span></span><br><span class="line">root@ubuntu:/usr/<span class="built_in">local</span><span class="comment"># cp zoo_sample.cfg zoo.cfg</span></span><br><span class="line">..... //配置待续</span><br></pre></td></tr></table></figure>
+<p>版权声明：本文为博主原创文章，转载时注明，谢谢。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wh136.github.io/2017/02/01/使用ubuntu,kafka,zookeeper搭建集群服务器/" data-id="cjhh045pq000gpc0haw13rlah" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vmware虚拟机/">Vmware虚拟机</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/集群服务器/">集群服务器</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/11/JavaScript深拷贝递归/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaScript浅拷贝和深拷贝递归
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/11/10/socketInPython/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">套接字socket在Python中的用法测试</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP协议/">HTTP协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python2-7/">Python2.7</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vmware虚拟机/">Vmware虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebService/">WebService</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XML/">XML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fiddler-wireshark/">fiddler&wireshark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/协议分析/">协议分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程/">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多进程/">多进程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抓包/">抓包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量统计/">流量统计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记，-计算机网络/">读书笔记， 计算机网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集群服务器/">集群服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面向对象程序设计/">面向对象程序设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试日记/">面试日记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/05/15/读谢希仁版计算机网络感悟/">读计算机网络感悟</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/10/201805面试总结/">201805面试总结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/10/leetCode/">leetcode猛撸</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/11/JavaScript深拷贝递归/">JavaScript浅拷贝和深拷贝递归</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/01/使用ubuntu,kafka,zookeeper搭建集群服务器/">使用ubuntu,kafka,zookeeper搭建集群服务器</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Ethan Sha<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    
+
+<script src="https://cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+
+<!-- baidu_tongji -->
+
+<script type="text/javascript">
+
+    var _hmt = _hmt || [];
+
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?25dd518910c914e2f273428933c57baf";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+
+</script>
+
+<!-- End baidu_tongji -->
+
+
+  
+  <title>leetcode猛撸 | Ethan Sha</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1.两数之和1.给定一个整数数组和一个目标值，找出数组中和为目标值的两个数。你可以假设每个输入只对应一种答案，且同样的元素不能被重复利用。示例:123给定 nums = [2, 7, 11, 15], target = 9因为 nums[0] + nums[1] = 2 + 7 = 9所以返回 [0, 1] 123456789101112131415161718class Solution(obj">
+<meta name="keywords" content="Python2.7,leetcode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode猛撸">
+<meta property="og:url" content="https://wh136.github.io/2018/05/10/leetCode/index.html">
+<meta property="og:site_name" content="Ethan Sha">
+<meta property="og:description" content="1.两数之和1.给定一个整数数组和一个目标值，找出数组中和为目标值的两个数。你可以假设每个输入只对应一种答案，且同样的元素不能被重复利用。示例:123给定 nums = [2, 7, 11, 15], target = 9因为 nums[0] + nums[1] = 2 + 7 = 9所以返回 [0, 1] 123456789101112131415161718class Solution(obj">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-05-21T14:34:23.552Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="leetcode猛撸">
+<meta name="twitter:description" content="1.两数之和1.给定一个整数数组和一个目标值，找出数组中和为目标值的两个数。你可以假设每个输入只对应一种答案，且同样的元素不能被重复利用。示例:123给定 nums = [2, 7, 11, 15], target = 9因为 nums[0] + nums[1] = 2 + 7 = 9所以返回 [0, 1] 123456789101112131415161718class Solution(obj">
+  
+    <link rel="alternate" href="/atom.xml" title="Ethan Sha" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  <link href="//fonts.font.im/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Ethan Sha</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://wh136.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-leetCode" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/10/leetCode/" class="article-date">
+  <time datetime="2018-05-10T05:09:04.000Z" itemprop="datePublished">2018-05-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      leetcode猛撸
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-两数之和"><a href="#1-两数之和" class="headerlink" title="1.两数之和"></a>1.两数之和</h3><p>1.给定一个整数数组和一个目标值，找出数组中和为目标值的两个数。<br>你可以假设每个输入只对应一种答案，且同样的元素不能被重复利用。<br>示例:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给定 nums = [2, 7, 11, 15], target = 9</span><br><span class="line">因为 nums[0] + nums[1] = 2 + 7 = 9</span><br><span class="line">所以返回 [0, 1]</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums, target)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :type target: int</span></span><br><span class="line"><span class="string">        :rtype: List[int]</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        list_len = len(nums)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, list_len):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, list_len):</span><br><span class="line">                <span class="keyword">if</span> (nums[i] + nums[j] == target):</span><br><span class="line">                    <span class="comment"># print [i, j]</span></span><br><span class="line">                    <span class="keyword">return</span> [i, j]</span><br><span class="line"></span><br><span class="line"><span class="comment"># nums = [3, 2, 4]</span></span><br><span class="line"><span class="comment"># target = 6</span></span><br><span class="line"><span class="comment"># obj = Solution()</span></span><br><span class="line"><span class="comment"># obj.twoSum(nums, target)</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-两数相加"><a href="#2-两数相加" class="headerlink" title="2.两数相加"></a>2.两数相加</h3><p>给定两个非空链表来表示两个非负整数。位数按照逆序方式存储，它们的每个节点只存储单个数字。将两数相加返回一个新的链表。<br>你可以假设除了数字 0 之外，这两个数字都不会以零开头。<br>示例：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)</span><br><span class="line">输出：7 -&gt; 0 -&gt; 8</span><br><span class="line">原因：<span class="number">342</span> + <span class="number">465</span> = <span class="number">807</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode(object):</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addTwoNumbers</span><span class="params">(self, l1, l2)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type l1: ListNode</span></span><br><span class="line"><span class="string">        :type l2: ListNode</span></span><br><span class="line"><span class="string">        :rtype: ListNode</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        cur1 = ListNode(<span class="number">0</span>)</span><br><span class="line">        cur2 = cur1</span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            <span class="keyword">if</span> (l1 <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>) &amp; (l2 <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>):</span><br><span class="line">                <span class="keyword">if</span> l1.val + l2.val + cur2.val &gt;= <span class="number">10</span>:</span><br><span class="line">                    carry_bit = (l1.val + l2.val + cur2.val) / <span class="number">10</span></span><br><span class="line">                    base_bit = (l1.val + l2.val + cur2.val) % <span class="number">10</span></span><br><span class="line">                    cur2.val = base_bit</span><br><span class="line">                    cur2.next = ListNode(<span class="number">0</span>)</span><br><span class="line">                    cur2 = cur2.next</span><br><span class="line">                    cur2.val = carry_bit</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    increament = l1.val + l2.val</span><br><span class="line">                    cur2.val += increament</span><br><span class="line">                    <span class="keyword">if</span> (l1.next <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>) &amp; (l2.next <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>):</span><br><span class="line">                        cur2.next = ListNode(<span class="number">0</span>)</span><br><span class="line">                        cur2 = cur2.next</span><br><span class="line">                    <span class="keyword">elif</span> (l1.next <span class="keyword">is</span> <span class="keyword">None</span>) &amp; (l2.next <span class="keyword">is</span> <span class="keyword">None</span>):</span><br><span class="line">                        <span class="keyword">pass</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        cur2.next = ListNode(<span class="number">0</span>)</span><br><span class="line">                        cur2 = cur2.next</span><br><span class="line">                l1 = l1.next</span><br><span class="line">                l2 = l2.next</span><br><span class="line">            <span class="keyword">elif</span> (l1 <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>) &amp; (l2 <span class="keyword">is</span> <span class="keyword">None</span>):</span><br><span class="line">                <span class="keyword">if</span> cur2.val + l1.val &gt;= <span class="number">10</span>:</span><br><span class="line">                    carry_bit = (cur2.val + l1.val) / <span class="number">10</span></span><br><span class="line">                    base_bit = (cur2.val + l1.val) % <span class="number">10</span></span><br><span class="line">                    cur2.val = base_bit</span><br><span class="line">                    cur2.next = ListNode(<span class="number">0</span>)</span><br><span class="line">                    cur2 = cur2.next</span><br><span class="line">                    cur2.val = carry_bit</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    cur2.val = cur2.val + l1.val</span><br><span class="line">                    <span class="keyword">if</span> l1.next <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">                        cur2.next = ListNode(<span class="number">0</span>)</span><br><span class="line">                        cur2 = cur2.next</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        <span class="keyword">pass</span></span><br><span class="line">                l1 = l1.next</span><br><span class="line">            <span class="keyword">elif</span> (l1 <span class="keyword">is</span> <span class="keyword">None</span>) &amp; (l2 <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>):</span><br><span class="line">                <span class="keyword">if</span> cur2.val + l2.val &gt;= <span class="number">10</span>:</span><br><span class="line">                    carry_bit = (cur2.val + l2.val) / <span class="number">10</span></span><br><span class="line">                    base_bit = (cur2.val + l2.val) % <span class="number">10</span></span><br><span class="line">                    cur2.val = base_bit</span><br><span class="line">                    cur2.next = ListNode(<span class="number">0</span>)</span><br><span class="line">                    cur2 = cur2.next</span><br><span class="line">                    cur2.val = carry_bit</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    cur2.val = cur2.val + l2.val</span><br><span class="line">                    <span class="keyword">if</span> l2.next <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">                        cur2.next = ListNode(<span class="number">0</span>)</span><br><span class="line">                        cur2 = cur2.next</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        <span class="keyword">pass</span></span><br><span class="line">                l2 = l2.next</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">return</span> cur1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkedList</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">create</span><span class="params">(self, lst)</span>:</span></span><br><span class="line">        head = ListNode(lst[<span class="number">0</span>])</span><br><span class="line">        cur = head</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(lst)):</span><br><span class="line">            cur.next = ListNode(lst[i])</span><br><span class="line">            cur = cur.next</span><br><span class="line">        <span class="keyword">return</span> head</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wh136.github.io/2018/05/10/leetCode/" data-id="cjhh045pj000cpc0hm9f2gtul" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python2-7/">Python2.7</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/05/10/201805面试总结/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          201805面试总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/11/JavaScript深拷贝递归/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaScript浅拷贝和深拷贝递归</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP协议/">HTTP协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python2-7/">Python2.7</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vmware虚拟机/">Vmware虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebService/">WebService</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XML/">XML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fiddler-wireshark/">fiddler&wireshark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/协议分析/">协议分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程/">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多进程/">多进程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抓包/">抓包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量统计/">流量统计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记，-计算机网络/">读书笔记， 计算机网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集群服务器/">集群服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面向对象程序设计/">面向对象程序设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试日记/">面试日记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/05/15/读谢希仁版计算机网络感悟/">读计算机网络感悟</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/10/201805面试总结/">201805面试总结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/10/leetCode/">leetcode猛撸</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/11/JavaScript深拷贝递归/">JavaScript浅拷贝和深拷贝递归</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/01/使用ubuntu,kafka,zookeeper搭建集群服务器/">使用ubuntu,kafka,zookeeper搭建集群服务器</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Ethan Sha<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    
+
+<script src="https://cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
