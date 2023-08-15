@@ -38,7 +38,7 @@ TCP协议位于传输层，提供可靠的字节流服务Byte Stream Service。�
 #!/usr/bin/python 2.7
 # -*- coding: utf-8 -*-
 # @Time    : 2017/5/18 22:52
-# @Author  : Ethan Sha
+# @Author  : xia.weihua
 # @File    : server.py
 # @Software: PyCharm
 import socket
@@ -73,7 +73,7 @@ tcp_socket.close()
 #!/usr/bin/python 2.7
 # -*- coding: utf-8 -*-
 # @Time    : 2017/5/18 22:52
-# @Author  : Ethan Sha
+# @Author  : xia.weihua
 # @File    : client.py
 # @Software: PyCharm
 import socket
@@ -117,7 +117,7 @@ send message>
 #!/usr/bin/python 2.7
 # -*- coding: utf-8 -*-
 # @Time    : 2017/5/18 22:52
-# @Author  : Ethan Sha
+# @Author  : xia.weihua
 # @File    : server.py
 # @Software: PyCharm
 
@@ -165,7 +165,7 @@ while 1:
 #!/usr/bin/python 2.7
 # -*- coding: utf-8 -*-
 # @Time    : 2017/5/18 22:52
-# @Author  : Ethan Sha
+# @Author  : xia.weihua
 # @File    : server.py
 # @Software: PyCharm
 

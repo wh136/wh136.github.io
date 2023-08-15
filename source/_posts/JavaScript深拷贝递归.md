@@ -8,7 +8,7 @@ tags: [JavaScript,面向对象程序设计]
 ### 浅拷贝
 
 ``` javascript
- var Ethan = {name: 'Ethan Sha', height: '177cm', girlfriend: {name: 'leftHand'}};  // Just a joke, never mind.
+ var Ethan = {name: 'xia.weihua', height: '177cm', girlfriend: {name: 'leftHand'}};  // Just a joke, never mind.
  var Jack = Ethan;
  
  Jack.height = '165cm';
@@ -17,10 +17,10 @@ tags: [JavaScript,面向对象程序设计]
  console.log(Jack);
 ```
 ```
- { name: 'Ethan Sha',
+ { name: 'xia.weihua',
    height: '165cm',     // I'm not
    girlfriend: { name: 'leftHand' } }
- { name: 'Ethan Sha',   
+ { name: 'xia.weihua',   
    height: '165cm',
    girlfriend: { name: 'leftHand' } }   
  
@@ -30,7 +30,7 @@ tags: [JavaScript,面向对象程序设计]
 ### 深拷贝
 深拷贝的结果是两个引用指向不同对象，即不同内存区域。实现深拷贝需要递归
 ``` javascript 
-var Ethan = {name: 'Ethan Sha', height: '177cm', girlfriend: {name: 'leftHand'}};
+var Ethan = {name: 'xia.weihua', height: '177cm', girlfriend: {name: 'leftHand'}};
 var Jack;
 
 function deepCopy(obj) {
@@ -55,7 +55,7 @@ console.log(Ethan);
 console.log(Jack);
 ```
 ```
-{ name: 'Ethan Sha',
+{ name: 'xia.weihua',
   height: '177cm',
   girlfriend: { name: 'leftHand' } }
 { name: 'Jack Neo',
