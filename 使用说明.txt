@@ -1,3 +1,10 @@
 进入blog,打开命令行，Git也可以，输入
 hexo server 
 浏览器输入 localhost:4000
+
+打包
+hexo generate 或hexo g
+
+取public下的文件，复制道其他地方，然后切换分支到master，把复制的文件覆盖，再commit、push到github上面去
+
+
